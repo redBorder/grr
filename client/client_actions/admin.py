@@ -265,9 +265,8 @@ class WriteFileWithData(actions.ActionPlugin):
 
   def Run(self, arg):
     """Does the actual work."""
-    f = open('C:\\Windows\\data.yml', 'w')
-
-    f.write(str('HOLA'))
+    f = open(arg.filename, 'w')
+    f.write(str(arg.data))
 
 
 
