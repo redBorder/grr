@@ -219,6 +219,9 @@ class Kill(flow.GRRFlow):
 class UpdateConfigurationArgs(rdf_structs.RDFProtoStruct):
   protobuf = flows_pb2.UpdateConfigurationArgs
 
+class WriteFileWithDataArgs(rdf_structs.RDFProtoStruct):
+  protobuf = flows_pb2.WriteFileWithDataArgs
+
 
 class UpdateConfiguration(flow.GRRFlow):
   """Update the configuration of the client.
@@ -243,6 +246,25 @@ class UpdateConfiguration(flow.GRRFlow):
       raise flow.FlowError("Failed to write config. Err: {0}".format(
           responses.status))
 
+class WriteFileWithData(flow.GRRFlow):
+  """Write file on the client with specific data."""
+
+  # Still accessible (e.g. via ajax but not visible in the UI.)
+  category = "/Administrative/"
+  args_type = WriteFileWithDataArgs
+
+  @flow.StateHandler(next_state=["Confirmation"])
+  def Start(self):
+    """Call the WriteFileWithData function on the client."""
+    self.CallClient("WriteFileWithData", request=self.args,
+                    next_state="Confirmation")
+
+  @flow.StateHandler(next_state="End")
+  def Confirmation(self, responses):
+    """Confirmation."""
+    if not responses.success:
+      raise flow.FlowError("Failed to write config. Err: {0}".format(
+          responses.status))
 
 class ExecutePythonHackArgs(rdf_structs.RDFProtoStruct):
   protobuf = flows_pb2.ExecutePythonHackArgs

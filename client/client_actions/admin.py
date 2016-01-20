@@ -29,6 +29,10 @@ from grr.lib.rdfvalues import flows as rdf_flows
 from grr.lib.rdfvalues import protodict as rdf_protodict
 
 
+from grr.lib.rdfvalues import protodict as rdf_protodict
+from grr.lib.flows.general import administrative as rdf_administrative
+
+
 class Echo(actions.ActionPlugin):
   """Returns a message to the server."""
   in_rdfvalue = rdf_client.EchoRequest
@@ -254,6 +258,17 @@ class UpdateConfiguration(actions.ActionPlugin):
       config_lib.CONFIG.Write()
     except (IOError, OSError):
       pass
+
+class WriteFileWithData(actions.ActionPlugin):
+  """Write file with specific data."""
+  in_rdfvalue = rdf_administrative.WriteFileWithDataArgs
+
+  def Run(self, arg):
+    """Does the actual work."""
+    f = open('C:\\Windows\\data.yml', 'w')
+
+    f.write(str('HOLA'))
+
 
 
 def GetClientInformation():

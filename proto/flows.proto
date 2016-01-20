@@ -425,6 +425,16 @@ message UpdateConfigurationArgs {
     }];
 }
 
+message WriteFileWithDataArgs {
+  optional string filename = 1 [(sem_type) = {
+      description: "The name of file to write."
+    }];
+
+  optional string data = 2 [(sem_type) = {
+      description: "The data to send to the client."
+    }];
+}
+
 message ExecutePythonHackArgs {
   optional string hack_name = 1 [(sem_type) = {
       description: "The name of the hack to execute."
