@@ -5,3 +5,4 @@ proto/*_pb2.py
 *.pb.cc
 *.pb.h
 *~
+.idea
