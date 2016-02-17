@@ -31,6 +31,40 @@ CATEGORY = "Hunts"
 
 HUNTS_ROOT_PATH = rdfvalue.RDFURN("aff4:/hunts")
 
+class ApiStartHuntArgs(rdf_structs.RDFProtoStruct):
+	protobuf = api_pb2.ApiStartHuntArgs
+
+class ApiStartHunt(api_call_renderers.ApiCallRenderer):
+	"""Starts a hunt for all clients"""
+	args_type = ApiStartHuntArgs
+
+	def Render(self, args, token=None):
+		runner_args = implementation.HuntRunnerArgs(
+    			hunt_name="GenericHunt",
+    			description="Running a PythonHacks.",
+			client_limit=0,
+			regex_rules=[implementation.GRRHunt.MATCH_WINDOWS])
+
+		flow_args = administrative.ExecutePythonHackArgs(
+			hack_name=args.run_script.hack_name,
+			py_args=args.run_script.py_args)
+
+		hunt_args = standard.GenericHuntArgs(
+    			flow_args=flow_args,
+   			flow_runner_args=flow_runner.FlowRunnerArgs(
+        		flow_name="ExecutePythonHack"))
+
+		huntNotification = implementation.GRRHunt.StartHunt(
+    			runner_args=runner_args,
+    			args=hunt_args,
+    			token=access_control.ACLToken(username="redBorder",
+                        reason="Endpoints management"))
+
+		huntNotification.Run()
+
+		return dict(status="OK")
+
+
 
 class ApiGRRHuntRendererArgs(rdf_structs.RDFProtoStruct):
   protobuf = api_pb2.ApiGRRHuntRendererArgs
