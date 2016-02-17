@@ -71,6 +71,12 @@ message ApiClientSummaryRendererArgs {
     }];
 }
 
+message ApiStartHuntArgs {
+    optional ExecutePythonHackArgs run_script = 1 [(sem_type) = {
+      description: "Definition of script to run.",
+    }];
+}
+
 message ApiStartFlowRendererArgs {
   optional string client_id = 1 [(sem_type) = {
       type: "ClientURN",
