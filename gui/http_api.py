@@ -333,6 +333,8 @@ class HttpApiInitHook(registry.InitHook):
     RegisterHttpRouteHandler("POST",
                              "/api/hunts/<hunt_id>/results/archive-files",
                              api_plugins.hunt.ApiHuntArchiveFilesRenderer)
+    RegisterHttpRouteHandler("POST", "/api/hunts/start",
+                             api_plugins.hunt.ApiStartHunt)
 
     RegisterHttpRouteHandler(
         "GET", "/api/reflection/aff4/attributes",
