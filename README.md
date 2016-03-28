@@ -5,6 +5,7 @@
 GRR Rapid Response is an incident response framework focused on remote live forensics.
 
 [![Build Status](https://travis-ci.org/google/grr.svg?branch=master)](https://travis-ci.org/google/grr)
+[![Codacy Badge](https://api.codacy.com/project/badge/grade/286a8d7d59574832b87004639ff91b46)](https://www.codacy.com/app/redBorder/grr)
  * [Quickstart: Fast automated installation](https://github.com/google/grr-doc/blob/master/quickstart.adoc)
  * [Downloads (installation files, client templates)](https://googledrive.com/host/0B1wsLqFoT7i2N3hveC1lSEpHUnM/)
  * [User Manual](https://github.com/google/grr-doc/blob/master/user_manual.adoc)
