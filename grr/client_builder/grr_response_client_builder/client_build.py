@@ -196,7 +196,7 @@ class TemplateBuilder(object):
       distro_id = distro.id()
       if distro_id in ["ubuntu", "debian"]:
         return "Target:LinuxDeb"
-      elif distro_id in ["centos", "rhel", "fedora"]:
+      elif distro_id in ["centos", "rhel", "fedora", "rocky"]:
         return "Target:LinuxRpm"
       else:
         message = "Unknown distro '{}', can't determine package format"

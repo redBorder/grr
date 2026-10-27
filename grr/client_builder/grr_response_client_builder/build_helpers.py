@@ -35,6 +35,7 @@ from grr_response_core.lib.rdfvalues import crypto as rdf_crypto
 try:
   # pytype: disable=import-error
   from PyInstaller import __main__ as PyInstallerMain
+  from PyInstaller import compat as PyInstallerCompat
   # pytype: enable=import-error
 except ImportError:
   # We ignore this failure since most people running the code don't build their
@@ -146,6 +147,11 @@ def BuildWithPyInstaller(context=None):
       spec_file,
   ]
   logging.info("Running pyinstaller: %s", args)
+  
+  # PyInstaller 5.8 does not include ipaddress in PY3_BASE_MODULES,
+  # but GRR requires it at runtime.
+  PyInstallerCompat.PY3_BASE_MODULES.add("ipaddress")
+  
   PyInstallerMain.run(pyi_args=args)
 
   # Clear out some crud that pyinstaller includes.
